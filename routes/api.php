@@ -21,6 +21,7 @@ Route::post('/gan',"nishacontroller@store");
 Route::delete('gan/{id}',"nishacontroller@destroy");
 
 Route::post('loginuser/', "geoRegistercontroller@login");
+Route::post('loginadmin/', "geoRegistercontroller@adminLogin");
 Route::post('register/', "geoRegistercontroller@register");
 Route::post('userlist/',"geoRegistercontroller@store");
 Route::get('userlist/{id}',"geoRegistercontroller@show");

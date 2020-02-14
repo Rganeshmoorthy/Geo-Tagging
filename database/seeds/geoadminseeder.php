@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\geoadmin;
+use App\User;
 class geoadminseeder extends Seeder
 {
     /**
@@ -11,16 +11,12 @@ class geoadminseeder extends Seeder
      */
     public function run()
     {
-        $data=[
-            ['username'=>"ganesh", 'password' =>"ganesh3"],
-       
-       ];
-       foreach ($data as $instence) 
-       {
-           $object=new geoadmin;
-           $object->username=$instence['username'];
-           $object->password=$instence['password'];
-           $object->save();
-          }
+        $user = User::create([
+            'id' =>"1",
+            'name' => "ajith",
+            'password' => bcrypt("123456"),
+            'mobile_no' => "9629877005",
+            'isadmin' => 1
+        ]); 
 }
 }

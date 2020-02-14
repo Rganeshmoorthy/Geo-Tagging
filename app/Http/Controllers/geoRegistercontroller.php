@@ -55,6 +55,38 @@ class geoRegistercontroller extends Controller
                    return response::json(array('status' => 0, 'message' => 'invalid mobile_no or password'));
                } 
             }
+            public function adminLogin(Request $request)
+            { 
+                $formdata = $request->all();
+                $mobile_no= $request->mobile_no;
+                $password= $request->password;
+                //echo"<pre>";print_r($password);exit(); 
+    
+                    //$user = User::where('mobile_no', $mobile_no)->first();
+                    //echo"<pre>";print_r($formdata);exit();
+           
+                   if(Auth::attempt(['mobile_no' => $mobile_no, 'password' => $password, 'isadmin' => 1])){
+                  
+                        $user = Auth::User();
+                       //echo"<pre>";print_r($user);exit();
+                       $token = $user->createToken('MyApp')->accessToken;
+                       //  echo"<pre>";print_r($token);exit();
+                       $results = array(
+                           'mobile_no' => $user->mobile_no,
+                           'password' => $user->password,
+                           'isadmin'=>$user->isadmin,
+                           'token' => $token
+                       );
+                 
+           
+                      // echo"<pre>";print_r($results);exit();
+                       return response::json(array('status' => 1, 'message' => 'User LoggedIn successfully..', 'result' => $results), 200)
+                                   ->header('token', $token);
+                   }
+                   else{
+                       return response::json(array('status' => 0, 'message' => 'invalid mobile_no or password'));
+                   } 
+                }
     /** 
          * Register api 
          * 
