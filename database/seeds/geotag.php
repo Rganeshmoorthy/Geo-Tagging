@@ -28,3 +28,4 @@ class geotag extends Seeder
     
     }
 }
+ 
