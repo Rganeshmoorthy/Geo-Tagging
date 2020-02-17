@@ -27,7 +27,8 @@ Route::post('userlist/',"geoRegistercontroller@store");
 Route::get('userlist/{id}',"geoRegistercontroller@show");
 Route::delete('userlist/{id}',"geoRegistercontroller@destroy");
 Route::get('userlist/',"geoRegistercontroller@index");
-Route::post('userlist/{id}',"geoRegistercontroller@update");
+Route::post('userlist/{id}',"userprofilecontroller@update");
+Route::post('logout','geologout@logoutApi');
 
 
 Route::post('taglist/',"geotagcontroller@store");

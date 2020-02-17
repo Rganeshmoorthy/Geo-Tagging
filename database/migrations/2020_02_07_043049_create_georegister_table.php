@@ -20,6 +20,7 @@ class CreateGeoregisterTable extends Migration
            // $table->string('confirm_password');
             $table->string('mobile_no');
             $table->string('isadmin')->default(0);
+            $table->string('status')->default(0);
             $table->rememberToken();
             $table->timestamps();
             $table->softdeletes();   

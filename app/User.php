@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name','password','mobile_no','isadmin'
+        'name','password','mobile_no','isadmin','status',
     ];
     
     /**
@@ -44,4 +44,7 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($password);
     }*/
-}
+
+    public function AauthAcessToken(){
+        return $this->hasMany('\App\OauthAccessToken');
+    }}

@@ -34,8 +34,9 @@ class geoRegistercontroller extends Controller
                 //$user = User::where('mobile_no', $mobile_no)->first();
                 //echo"<pre>";print_r($formdata);exit();
        
-               if(Auth::attempt(['mobile_no' => $mobile_no, 'password' => $password])){
-              
+               if(Auth::attempt(['mobile_no' => $mobile_no, 'password' => $password,'status'=>1]))
+               {
+           
                     $user = Auth::User();
                    // echo"<pre>";print_r($user);exit();
                    $token = $user->createToken('MyApp')->accessToken;
@@ -65,8 +66,8 @@ class geoRegistercontroller extends Controller
                     //$user = User::where('mobile_no', $mobile_no)->first();
                     //echo"<pre>";print_r($formdata);exit();
            
-                   if(Auth::attempt(['mobile_no' => $mobile_no, 'password' => $password, 'isadmin' => 1])){
-                  
+                   if(Auth::attempt(['mobile_no' => $mobile_no, 'password' => $password, 'isadmin' => 1]))
+                   {
                         $user = Auth::User();
                        //echo"<pre>";print_r($user);exit();
                        $token = $user->createToken('MyApp')->accessToken;
@@ -82,7 +83,7 @@ class geoRegistercontroller extends Controller
                       // echo"<pre>";print_r($results);exit();
                        return response::json(array('status' => 1, 'message' => 'User LoggedIn successfully..', 'result' => $results), 200)
                                    ->header('token', $token);
-                   }
+                }
                    else{
                        return response::json(array('status' => 0, 'message' => 'invalid mobile_no or password'));
                    } 
@@ -146,9 +147,10 @@ class geoRegistercontroller extends Controller
     {
         $formdata=$request->all();
             User::create([
-                'name'=>$formdata['name'],
+               'name'=>$formdata['name'],
                 'password'=>bcrypt($formdata['password']),
                 'mobile_no'=>$formdata['mobile_no'],
+                'status' =>$formdata['status'],
             ]);
             return Response::json(['message'=>"stored successfully"]);
         }
