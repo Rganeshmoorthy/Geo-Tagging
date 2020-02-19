@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta charset="ISO-8859-1">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<title>Balance Exhaust</title>
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/jiostaticresources/images/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="/favicon.ico">
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<link rel="stylesheet" href="/jiostaticresources/css/style.min.css">
+<link rel="stylesheet" href="/jiostaticresources/css/style1.min.css">
+<link rel="stylesheet" href="/jiostaticresources/css/style2.min.css">
+<link rel="stylesheet" href="/jiostaticresources/css/style3.min.css">
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="assets/js/html5shiv.min.js"></script>
+<script src="assets/js/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+<!-- css -->
+<style>
+.header { margin: 0px; padding: 5px 0px 3px 0px; background: #fff; border-bottom: 2px solid #eee; text-align: center;}
+.balance-haust-frame {max-width: 800px; margin: 0px auto 0px ; text-align: center;}
+.balance-haust-frame h2 { font-size: 36px !important; margin: 40px 20px 20px 20px !important;}
+.balance-haust-frame ul, .balance-haust-frame ul li { margin: 0; padding: 0; list-style-type: none; }
+.balance-haust-frame ul li {display: inline-block; width: 48%; text-align: left; vertical-align: top; padding: 20px 20px;}
+.balance-haust-frame ul { display: flex; margin: 0 0 20px 0;}
+.balance-haust-frame ul li .small {font-size: 12px !important; line-height: 1.2 !important;}
+.balance-haust-frame ul li:first-child { border-right: 1px solid #e3e2e8;}
+.copyright-text {font-size:13px; background: #f8f8f7; width: 100%; height: 56px; margin: 0px auto; padding: 8px 20px; text-align: left; position: absolute; bottom: 0;}
+.copyright-text div { width: 100%; max-width: 1048px; margin: 0px auto;}
+@media (max-width: 640px){
+.balance-haust-frame h2 { margin-bottom: 0 !important; font-size: 28px !important; line-height: 1!important;}
+.balance-haust-frame ul { display: block;}
+.balance-haust-frame ul li {width: 90%; padding: 20px 0px;}
+.balance-haust-frame ul li:first-child { border-right: 0px solid #e3e2e8; border-bottom: 1px solid
+#ccc;}
+}
+</style>
+<div class="header">
+<a href='/'><img src="/jiostaticresources/images/logo-jio03.png" alt=""></a>
+</div>
+<div class="balance-haust-frame">
+<h2>You are not connected to internet</h2>
+<ul>
+<li>
+<p>If you are using a Prepaid connection please <a href="https://www.jio.com/rechargenow"><strong>RECHARGE NOW</strong></a>.</p>
+<p>&nbsp;</p>
+<p>*Note: If you have already recharged, please check your plan. You will be unable to use a JioPhone plan in a smartphone.</p>
+</li>
+<li>
+<p>If you are using a Postpaid connection please check if your bill is overdue or your credit limit is exhausted.</p>
+<p>Please <a href="https://www.jio.com/Jio/portal/payBillnow"><strong>MAKE PAYMENT</strong></a> to restore your connection.</p>
+</li>
+</ul>
+<div>
+<br>
+<br>
+</div>
+</div>
+<div class="copyright-text">
+<div>&copy;Reliance Industries 2018</div>
+</div>
+</body>
+</html>

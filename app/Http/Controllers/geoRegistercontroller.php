@@ -45,6 +45,8 @@ class geoRegistercontroller extends Controller
                        'mobile_no' => $user->mobile_no,
                        'password' => $user->password,
                        'token' => $token
+                       //'user' =>  $user
+
                    );
              
        
@@ -115,11 +117,7 @@ class geoRegistercontroller extends Controller
          * 
          * @return \Illuminate\Http\Response 
          */ 
-        public function details() 
-        { 
-            $user = Auth::User(); 
-            return response()->json(['success' => $user], $this-> successStatus); 
-        } 
+       
     public function index()
     {
         $Reg = User::select('id','name','password','mobile_no')->where('deleted_at', '=', NULL)->get(); 
@@ -218,4 +216,11 @@ class geoRegistercontroller extends Controller
         $reg = User::where('id', $id)->update(['deleted_at' => date('y-m-d')]);
         return response::json(['error' => false, 'message' =>"geoRegModel Deleted successfully"], 200);
     }
+
+    public function details() 
+    { 
+        $user = Auth::User(); 
+        //echo"<pre>";print_r($user);exit();
+        return response()->json(['success' => $user], $this-> successStatus); 
+    } 
 }

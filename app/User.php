@@ -32,11 +32,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    protected $table='georegister';
-   /**public function isAdmin()
-    {
-        return $this->is_admin;
-    }*/
+ protected $table='users';
+   
     
     /**Add a mutator to ensure hashed passwords
      

@@ -8,5 +8,5 @@ class geoadmin extends Model
 {
     protected $fillable=['username','password'];
     protected $hidden=['password','remember_Token'];
-   protected $table= 'geoadmin';
+    protected $table= 'geoadmin';
 }

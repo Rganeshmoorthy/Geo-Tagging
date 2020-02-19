@@ -1,7 +1,5 @@
-<?php
-
+ <?php
 use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -12,7 +10,6 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -29,6 +26,7 @@ Route::delete('userlist/{id}',"geoRegistercontroller@destroy");
 Route::get('userlist/',"geoRegistercontroller@index");
 Route::post('userlist/{id}',"userprofilecontroller@update");
 Route::post('logout','geologout@logoutApi');
+Route::get('userprofile','geoRegistercontroller@details')->middleware('auth:api');
 
 
 Route::post('taglist/',"geotagcontroller@store");
@@ -37,11 +35,30 @@ Route::delete('taglist/{tag_id}',"geotagcontroller@destroy");
 Route::get('taglist/',"geotagcontroller@index");
 Route::post('taglist/{tag_id}',"geotagcontroller@update");
 
-//Route::post('login/',"geoRegistercontroller@login");
+
+Route::post('userlist/',"geoRegistercontroller@store");
+Route::get('userlist/{id}',"geoRegistercontroller@show");
+Route::delete('userlist/{id}',"geoRegistercontroller@destroy");
+Route::get('userlist/',"geoRegistercontroller@index");
+Route::post('userlist/{id}',"userprofilecontroller@update");
+Route::post('logout','geologout@logoutApi');
+Route::get('userprofile','geoRegistercontroller@details')->middleware('auth:api');
+
+Route::post('taglist/',"geotagcontroller@store");
+Route::get('taglist/{tag_id}',"geotagcontroller@show");
+Route::delete('taglist/{tag_id}',"geotagcontroller@destroy");
+Route::get('taglist/',"geotagcontroller@index");
+Route::post('taglist/{tag_id}',"geotagcontroller@update");
+
+Route::group(['middleware' => 'auth:api'], function () 
+{    
+});
+
+//Route::post('login/',"geoRegistercontroller@log1in");
 //Route::post('register/',"LoginController@register");
 //Route::post('login/', "LoginController@login");
 
-
+/*
 Route::middleware('auth:api')->get('/User', function (Request $request) {
     return $request->User();
  });
@@ -50,4 +67,4 @@ Route::middleware('auth:api')->get('/User', function (Request $request) {
 Route::post('register/', "UserController@register");
 Route::group(['middleware' => 'auth:api'], function(){
 Route::post('details', "geoRegistercontroller@details");
-});
+});*/
