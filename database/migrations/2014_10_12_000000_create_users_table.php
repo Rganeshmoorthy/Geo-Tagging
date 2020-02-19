@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
            // $table->string('confirm_password');
             $table->string('mobile_no')->unique();
             $table->string('isadmin')->default(0);
-            $table->string('status')->default(0);
+            $table->string('status')->default(1);
             $table->rememberToken();
             $table->timestamps();
             $table->softdeletes();   

@@ -15,7 +15,7 @@ class geoadminseeder extends Seeder
             'id' =>"1",
             'name' => "ajith",
             'password' => bcrypt("123456"),
-            'mobile_no' => "9629877005",
+            'mobile_no' =>"9629877005",
             'isadmin' => 1
         ]); 
 }

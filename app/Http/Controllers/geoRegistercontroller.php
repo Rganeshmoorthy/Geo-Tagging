@@ -110,7 +110,13 @@ class geoRegistercontroller extends Controller
             $user = User::create($input); 
             $success['token'] =  $user->createToken('MyApp')-> accessToken; 
             $success['name'] =  $user->name;
-    return response()->json(['success'=>$success], $this-> successStatus); 
+ //   return response()->json(['success'=>$success], $this-> successStatus); 
+     
+ return response::json(array('status' => 1, 'message' => 'User register successfully..', 'result' => $results), 200)
+                               ->header('token', $token);
+               
+ //       return response::json(array('status' => 0, 'message' => 'invalid mobile_no or password'));
+                
         }
     /** 
          * details api 
@@ -148,7 +154,7 @@ class geoRegistercontroller extends Controller
                'name'=>$formdata['name'],
                 'password'=>bcrypt($formdata['password']),
                 'mobile_no'=>$formdata['mobile_no'],
-                'status' =>$formdata['status'],
+                //'status' =>$formdata['status'],
             ]);
             return Response::json(['message'=>"stored successfully"]);
         }

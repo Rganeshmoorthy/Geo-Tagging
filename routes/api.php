@@ -50,6 +50,8 @@ Route::delete('taglist/{tag_id}',"geotagcontroller@destroy");
 Route::get('taglist/',"geotagcontroller@index");
 Route::post('taglist/{tag_id}',"geotagcontroller@update");
 
+Route::get('changestatus/{id}','updateuserstatuscontroller@updatestatus');
+
 Route::group(['middleware' => 'auth:api'], function () 
 {    
 });
