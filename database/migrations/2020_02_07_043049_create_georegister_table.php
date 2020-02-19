@@ -18,7 +18,7 @@ class CreateGeoregisterTable extends Migration
             $table->string('name');
             $table->string('password')->bcrypt();
            // $table->string('confirm_password');
-            $table->string('mobile_no');
+            $table->string('mobile_no')->unique();
             $table->string('isadmin')->default(0);
             $table->string('status')->default(0);
             $table->rememberToken();
