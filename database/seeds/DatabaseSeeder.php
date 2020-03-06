@@ -13,5 +13,6 @@ class DatabaseSeeder extends Seeder
     {
          $this->call(geoadminseeder::class);
          $this->call(geo::class);
-    }
+        //  $this->call(masterseeder::class);
+        }
 }
