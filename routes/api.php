@@ -10,12 +10,10 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+//  header('Access-Control-Allow-Headers: Content-Type, x-xsrf-token, x_csrftoken');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('gan/{id}',"nishacontroller@show");
-Route::post('/gan',"nishacontroller@store");
-Route::delete('gan/{id}',"nishacontroller@destroy");
 
 Route::post('loginuser/', "geoRegistercontroller@login");
 Route::post('loginadmin/', "geoRegistercontroller@adminLogin");
@@ -25,48 +23,27 @@ Route::get('userlist/{id}',"geoRegistercontroller@show");
 Route::delete('userlist/{id}',"geoRegistercontroller@destroy");
 Route::get('userlist/',"geoRegistercontroller@index");
 Route::post('userlist/{id}',"userprofilecontroller@update");
-Route::post('logout','geologout@logoutApi');
+Route::post('logout/','geologout@logoutApi');
 Route::get('userprofile','geoRegistercontroller@details')->middleware('auth:api');
 
 
-Route::post('taglist/',"geotagcontroller@store");
-Route::get('taglist/{tag_id}',"geotagcontroller@show");
-Route::delete('taglist/{tag_id}',"geotagcontroller@destroy");
-Route::get('taglist/',"geotagcontroller@index");
-Route::post('taglist/{tag_id}',"geotagcontroller@update");
+
+Route::get('tagDisplaybyid/{tag_id}',"GeotagsController@show")->middleware('auth:api');
+Route::delete('tagDelete/{tag_id}',"GeotagsController@destroy")->middleware('auth:api');
+Route::get('tagDisplay/',"GeotagsController@index")->middleware('auth:api');
+Route::post('tagUpdate/{tag_id}',"GeotagsController@update")->middleware('auth:api');
+// Route::post('pushnotify/',"geotagcontroller@push_notification");
+Route::post('tagAdd',"GeotagsController@store")->middleware('auth:api');
 
 
-Route::post('userlist/',"geoRegistercontroller@store");
-Route::get('userlist/{id}',"geoRegistercontroller@show");
-Route::delete('userlist/{id}',"geoRegistercontroller@destroy");
-Route::get('userlist/',"geoRegistercontroller@index");
-Route::post('userlist/{id}',"userprofilecontroller@update");
-Route::post('logout','geologout@logoutApi');
-Route::get('userprofile','geoRegistercontroller@details')->middleware('auth:api');
 
-Route::post('taglist/',"geotagcontroller@store");
-Route::get('taglist/{tag_id}',"geotagcontroller@show");
-Route::delete('taglist/{tag_id}',"geotagcontroller@destroy");
-Route::get('taglist/',"geotagcontroller@index");
-Route::post('taglist/{tag_id}',"geotagcontroller@update");
+Route::post('adminAddtag/',"tagcontroller@store");
+Route::get('adminDisplaytag/',"tagcontroller@index");
+Route::post('adminUpdatetag/{id}',"tagcontroller@update");
+Route::delete('adminDeletetag/{id}',"tagcontroller@destroy");
+Route::get('adminSearchtag/',"tagcontroller@autoComplete");
+Route::get('admintagstatus/{id}/',"tagcontroller@tagupdatestatus");
+
+
 
 Route::get('changestatus/{id}','updateuserstatuscontroller@updatestatus');
-
-Route::group(['middleware' => 'auth:api'], function () 
-{    
-});
-
-//Route::post('login/',"geoRegistercontroller@log1in");
-//Route::post('register/',"LoginController@register");
-//Route::post('login/', "LoginController@login");
-
-/*
-Route::middleware('auth:api')->get('/User', function (Request $request) {
-    return $request->User();
- });
-//Route::post('loginuser/', "UserController@login");
-//Route::post('user/', "UserController@store");
-Route::post('register/', "UserController@register");
-Route::group(['middleware' => 'auth:api'], function(){
-Route::post('details', "geoRegistercontroller@details");
-});*/

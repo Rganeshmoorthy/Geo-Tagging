@@ -27,6 +27,8 @@ class geoRegistercontroller extends Controller
          */ 
         public function login(Request $request){ 
             $formdata = $request->all();
+             $input=file_get_contents("php://input");
+             $input=json_decode($input,true);
             $mobile_no= $request->mobile_no;
             $password= $request->password;
                 //echo"<pre>";print_r($mobile_no);exit(); 
@@ -59,16 +61,18 @@ class geoRegistercontroller extends Controller
                } 
             }
             public function adminLogin(Request $request)
-            { 
+            {
                 $formdata = $request->all();
+                $input=file_get_contents("php://input");
+             $input=json_decode($input,true);
                 $mobile_no= $request->mobile_no;
                 $password= $request->password;
-                //echo"<pre>";print_r($password);exit(); 
+                // echo"<pre>";print_r($formdata);exit(); 
     
                     //$user = User::where('mobile_no', $mobile_no)->first();
                     //echo"<pre>";print_r($formdata);exit();
            
-                   if(Auth::attempt(['mobile_no' => $mobile_no, 'password' => $password, 'isadmin' => 1]))
+                   if(Auth::attempt(['mobile_no' => $mobile_no, 'password' => $password]))
                    {
                         $user = Auth::User();
                        //echo"<pre>";print_r($user);exit();
@@ -126,17 +130,17 @@ class geoRegistercontroller extends Controller
        
     public function index()
     {
-        $Reg = User::select('id','name','password','mobile_no')->where('deleted_at', '=', NULL)->get(); 
-
+        $Reg = User::select('id','name','password','mobile_no')->where('deleted_at', '=', NULL)->where('isadmin', '=', 0)->get(); 
+        
         $RegArray = array();
         foreach($Reg as $value){
           $RegArray[] = [
             "id" => $value->id,
             "name" => $value->name,
-            'password' => $value->password,
+            //"password" => $value->password,
             "mobile_no" => $value->mobile_no
           ];
-        }
+    }
         return response::json(['error' => false, 'message' =>"success", "RegisterDetails" => $RegArray], 200);
     }
 
@@ -148,13 +152,14 @@ class geoRegistercontroller extends Controller
     
        
     public function store(Request $request)
-    {
+    {    
+        $otp=rand(10000,99999).'';
         $formdata=$request->all();
             User::create([
                'name'=>$formdata['name'],
                 'password'=>bcrypt($formdata['password']),
                 'mobile_no'=>$formdata['mobile_no'],
-                //'status' =>$formdata['status'],
+                'otp'=>$otp
             ]);
             return Response::json(['message'=>"stored successfully"]);
         }
@@ -207,7 +212,7 @@ class geoRegistercontroller extends Controller
           'password' => $request->input('password'),
           'mobile_no' => $request->input('mobile_no'),
 ];
-          $Reg = User::where('id', $id)->update($formdata);
+          $Reg = User::where('id', $id)->update($formData);
           return Response::json(['message'=>"updated successfully"]);
     }
 
@@ -226,7 +231,15 @@ class geoRegistercontroller extends Controller
     public function details() 
     { 
         $user = Auth::User(); 
-        //echo"<pre>";print_r($user);exit();
-        return response()->json(['success' => $user], $this-> successStatus); 
+        //echo"<pre>";print_r($user->id);exit();
+       /* $reg=User::select('id','name','mobile_no')->where('id',$id);
+        $regarray=[
+            "id"=>$reg->id,
+            "name"=>$reg->name,
+          "mobile_no" => $reg->mobile_no,
+        ];
+        return Response::json(["Result"=>$regarray]);*/
+    
+        return response()->json(['success' => $user], $this->successStatus); 
     } 
 }
