@@ -21,6 +21,7 @@ class GeotagsController extends Controller
         $formdata=$request->all();
         $user = Auth::user();
         //echo"<pre>";print_r($user);exit();
+        // $email = $user->name;
         $image = $formdata["upload_image"];
         $name = $image->getClientOriginalName();
         $image->move(public_path() . '/images/', $name);
