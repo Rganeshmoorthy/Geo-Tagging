@@ -21,6 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('mobile_no')->unique();
             $table->string('isadmin')->default(0);
             $table->string('status')->default(1);
+            $table->string('fcm_id')->nullable();
+
            // $table->string('verifiedotp')->default(0);
             $table->rememberToken();
             $table->timestamps();

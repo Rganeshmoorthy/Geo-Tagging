@@ -24,12 +24,19 @@ class userprofilecontroller extends Controller
         $formData = $request->all();
 
             //echo "<pre>";print_r($taxCounts);exit;
+            if(isset($formdata['name']) && isset($formdata['password']) && isset($formdata['mobile_no']))
+               {
         $formdata = [
           'name' => $request->input('name'),
           'password' => \Hash::make($request->input('password')),
           'mobile_no' => $request->input('mobile_no'),
 ];
           $Reg = User::where('id', $id)->update($formdata);
+    }
+    else
+    {
+        return Response::json(['message'=>"required"]);
+    }
           return Response::json(['message'=>"updated successfully"]);
     }
 

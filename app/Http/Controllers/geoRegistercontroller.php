@@ -64,7 +64,7 @@ class geoRegistercontroller extends Controller
             {
                 $formdata = $request->all();
                 $input=file_get_contents("php://input");
-             $input=json_decode($input,true);
+                $input=json_decode($input,true);
                 $mobile_no= $request->mobile_no;
                 $password= $request->password;
                 // echo"<pre>";print_r($formdata);exit(); 
@@ -130,14 +130,15 @@ class geoRegistercontroller extends Controller
        
     public function index()
     {
-        $Reg = User::select('id','name','password','mobile_no')->where('deleted_at', '=', NULL)->get(); 
+        $Reg = User::select('id','name','password','status','mobile_no')->where('deleted_at', '=', NULL)->where('isadmin','=',0)->get(); 
 
         $RegArray = array();
         foreach($Reg as $value){
           $RegArray[] = [
             "id" => $value->id,
             "name" => $value->name,
-            'password' => $value->password,
+            "status" => $value->status,
+            // 'password' => $value->password,
             "mobile_no" => $value->mobile_no
           ];
         }
@@ -155,12 +156,19 @@ class geoRegistercontroller extends Controller
     {    
         $otp=rand(10000,99999).'';
         $formdata=$request->all();
+         if(isset($formdata['name']) && isset($formdata['password']) && isset($formdata['mobile_no']))
+                {
             User::create([
                'name'=>$formdata['name'],
                 'password'=>bcrypt($formdata['password']),
                 'mobile_no'=>$formdata['mobile_no'],
                 'otp'=>$otp
             ]);
+                }
+                else
+                {
+                    return Response::json(['message'=>"required"]);
+                }
             return Response::json(['message'=>"stored successfully"]);
         }
     
@@ -202,19 +210,26 @@ class geoRegistercontroller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        $formData = $request->all();
+//     public function update(Request $request, $id)
+//     {
+//         $formdata = $request->all();
 
-            //echo "<pre>";print_r($taxCounts);exit;
-        $formdata = [
-          'name' => $request->input('name'),
-          'password' => $request->input('password'),
-          'mobile_no' => $request->input('mobile_no'),
-];
-          $Reg = User::where('id', $id)->update($formData);
-          return Response::json(['message'=>"updated successfully"]);
-    }
+//          echo "<pre>";print_r($formdata);exit;
+//              if(isset($formdata['name']) && isset($formdata['password']) && isset($formdata['mobile_no']))
+//                 {
+//         $formdata = [
+//           'name' => $request->input('name'),
+//           'password' => $request->input('password'),
+//           'mobile_no' => $request->input('mobile_no'),
+// ];
+//           $Reg = User::where('id', $id)->update($formData);
+// }
+// else
+// {
+//      return Response::json(['message'=>"required"]);
+// }
+//           return Response::json(['message'=>"updated successfully"]);
+//     }
 
     /**
      * Remove the specified resource from storage.

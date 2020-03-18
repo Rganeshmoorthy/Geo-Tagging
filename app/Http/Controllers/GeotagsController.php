@@ -8,6 +8,7 @@ use App\geotagModel;
 use Response;
 use Validator;
 use Auth;
+use DB;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Http\Controllers\Controller; 
 // use Illuminate\Support\Facades\Auth; 
@@ -19,6 +20,9 @@ class GeotagsController extends Controller
      {
 
         $formdata=$request->all();
+        if(isset($formdata['upload_image']) && isset($formdata['upload_video']) && isset($formdata['title']) 
+        && isset($formdata['tag_keyword']) && isset($formdata['hours']))
+        {
         $user = Auth::user();
         //echo"<pre>";print_r($user);exit();
         // $email = $user->name;
@@ -36,8 +40,17 @@ class GeotagsController extends Controller
             'description'=>$formdata['description'],
             'upload_image'=>$upload_image,
             'upload_video'=>$upload_video,
-            'tag_keyword'=>$formdata['tag_keyword'],               
+            'tag_keyword'=>$formdata['tag_keyword'], 
+               'hours'=>$formdata['hours']
+              
         ]);
+        }
+        else
+                {
+                    return Response::json(['message'=>"required"]);
+                }
+  
+
         return Response::json(['message'=>"stored successfully"]);
 
   
@@ -46,7 +59,7 @@ class GeotagsController extends Controller
      {
         $user = Auth::user();
  
-         $tag=geotagModel::select('tag_id','user_id','title','description','upload_image','upload_video','tag_keyword')->where('tag_id',$tag_id)->first();
+         $tag=geotagModel::select('tag_id','user_id','title','description','upload_image','upload_video','tag_keyword','hours')->where('tag_id',$tag_id)->first();
          $tagarray=[
              "tag_id"=>$tag->tag_id,
              "user_id" => $user->id,
@@ -55,6 +68,7 @@ class GeotagsController extends Controller
            "upload_image" => $tag->upload_image,
            "upload_video"=>$tag->upload_video,
            "tag_keyword" => $tag->tag_keyword,
+           "hours" => $tag->hours,
          ];
          return Response::json(["Result"=>$tagarray]);
      }
@@ -95,7 +109,8 @@ class GeotagsController extends Controller
       'upload_image' =>$tagimage,
       'upload_video'=>$tagvideo,
       'tag_keyword' => $request->input('tag_keyword'),
-                ];
+       'hours' => $request->input('hours'),
+             ];
       $tag = geotagModel::where('tag_id', $tag_id)->update($formdata);
       return Response::json(['message'=>"updated successfully"]);
     }
@@ -107,7 +122,12 @@ class GeotagsController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $tag = geotagModel::select('tag_id','user_id','title','description','upload_image','upload_video','tag_keyword')->where('deleted_at', '=', NULL)->get(); 
+        $tag = DB::select("SELECT tag_id, user_id, title, description, upload_image, upload_video, tag_keyword, hours, created_at FROM geotag
+        where geotag.deleted_at IS NULL 
+      and geotag.created_at > DATE_SUB(NOW(), INTERVAL geotag.hours HOUR) 
+                                  ");
+                                 
+                                  
         $tagArray = array();
         foreach($tag as $value){
           $tagArray[] = [
@@ -118,7 +138,8 @@ class GeotagsController extends Controller
             'description' => $value->description,
             "upload_image" => $value->upload_image,
             "upload_video"=>$value->upload_video,
-            "tag_keyword" => $value->tag_keyword
+            "tag_keyword" => $value->tag_keyword,
+            "hours"=>$value->hours 
           ];
         }
     

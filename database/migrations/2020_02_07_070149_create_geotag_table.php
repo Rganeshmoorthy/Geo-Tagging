@@ -21,6 +21,7 @@ class CreateGeotagTable extends Migration
             $table->string('upload_image');
             $table->string('upload_video');
             $table->string('tag_keyword');
+            $table->integer('hours');
             $table->timestamps();
             $table->softdeletes();
         });

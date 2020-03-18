@@ -53,11 +53,19 @@ class tagcontroller extends Controller
     {
         $formdata=$request->all();
         //  echo"<pre>";print_r($formdata);exit();
+           if(isset($formdata['value']) )
+           {
         $tags = explode(",", $request->value);
         foreach($tags as $tag)
         {
             mastermodel::create(['value'=>$tag]);
         }
+    }
+    else{
+               
+                    return Response::json(['message'=>"required"]);
+                
+    }
     //    if(mastermodel::where('value', '=', Input::get('value'))->exists());
          // echo"<pre>";print_r($request->value);
        // $str_arr = preg_split ("/\,/", $formdata);
