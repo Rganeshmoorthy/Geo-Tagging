@@ -130,24 +130,15 @@ class geoRegistercontroller extends Controller
        
     public function index()
     {
-<<<<<<< HEAD
         $Reg = User::select('id','name','password','status','mobile_no')->where('deleted_at', '=', NULL)->where('isadmin','=',0)->get(); 
 
-=======
-        $Reg = User::select('id','name','password','mobile_no')->where('deleted_at', '=', NULL)->where('isadmin', '=', 0)->get(); 
-        
->>>>>>> c5db54318414db1992463a847a962bcda4ebc4d0
         $RegArray = array();
         foreach($Reg as $value){
           $RegArray[] = [
             "id" => $value->id,
             "name" => $value->name,
-<<<<<<< HEAD
             "status" => $value->status,
             // 'password' => $value->password,
-=======
-            //"password" => $value->password,
->>>>>>> c5db54318414db1992463a847a962bcda4ebc4d0
             "mobile_no" => $value->mobile_no
           ];
     }
